@@ -1,0 +1,9 @@
+cert.pem
+key.pem
+.env
+node_modules
+frontend/node_modules
+frontend/cert.pem
+frontend/key.pem
+frontend/.enn
+.env
