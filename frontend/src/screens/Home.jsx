@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import authData from "../auth.js";
 import Navbar from "../components/home/Navbar";
@@ -32,6 +32,7 @@ function Home({ dispatch, allStories, loading }) {
               key={data._id}
               story={data.story}
               title={data.heading}
+              storyId={data._id}
             />
           ))
         )}

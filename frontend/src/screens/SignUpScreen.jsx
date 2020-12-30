@@ -12,7 +12,7 @@ function SignUpScreen({
   confirmPassword,
   confirmPasswordError,
 }) {
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
   const usernameHandler = (event) => {
     dispatch({ type: "SIGNUP_USERNAME", payload: event.target.value });
   };
@@ -51,11 +51,22 @@ function SignUpScreen({
     });
     if (!res1.data.error) {
       auth.accessToken = res1.data.accessToken;
+      if (image !== "") {
+        const data = new FormData();
+        data.append("profile", image);
+        const res2 = await axios.post("/api/uploadProfileImage", data, {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        });
+        if (res2.data.error) {
+          console.log(res2.data.error);
+        }
+      }
+      console.log("login successful");
+    } else {
+      console.log(res1.data.error);
     }
-    const data = new FormData();
-    data.append("profile", image);
-    const res2 = await axios.post("/api/uploadProfileImage", data);
-    console.log(res2);
   };
 
   return (

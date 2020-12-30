@@ -19,12 +19,20 @@ function WriterScreen({ dispatch, storyData, authorData, headingData }) {
   }
 
   const sendWriterData = async () => {
-    const res = await axios.post("/api/writer", {
-      author: authorData,
-      heading: headingData,
-      story: storyData,
-    });
-    console.log(res.data);
+    const res = await axios.post(
+      "/api/writer",
+      {
+        author: authorData,
+        heading: headingData,
+        story: storyData,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      }
+    );
+    console.log("success");
   };
 
   //return values

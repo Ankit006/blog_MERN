@@ -20,7 +20,15 @@ const userSchema = mongoose.Schema({
     min: 8,
   },
   profileImage: {
-    type: String,
+    public_id: {
+      type: String,
+    },
+    originalUrl: {
+      type: String,
+    },
+    compressedUrl: {
+      type: String,
+    },
   },
 });
 

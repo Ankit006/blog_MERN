@@ -2,6 +2,8 @@ import multer from "multer";
 import express from "express";
 import dotenv from "dotenv";
 import cloudenary from "cloudinary";
+import authenticate from "../middleware/authenticate.js";
+import User from "../models/userModel.js";
 
 dotenv.config();
 
@@ -17,6 +19,7 @@ cloud.config({
 
 profileImageUpload.post(
   "/uploadProfileImage",
+  authenticate,
   upload.single("profile"),
   async (req, res) => {
     try {
@@ -32,9 +35,17 @@ profileImageUpload.post(
           eager_async: true,
         }
       );
-      res.send(response);
+      const user = await User.findOne({ email: req.userEmail });
+      user.profileImage.public_id = response.public_id;
+      user.profileImage.originalUrl = response.secure_url;
+      user.profileImage.compressedUrl = response.eager[0].secure_url;
+      await user.save();
+
+      res.json({
+        success: "successfully upload image",
+      });
     } catch (Err) {
-      res.send(Err);
+      res.json({ error: "error while uploading image" });
     }
   }
 );
