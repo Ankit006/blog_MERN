@@ -13,20 +13,26 @@ signUpRouter.post("/signup", async (req, res) => {
     const user = new User(req.body);
     user.password = await bcrypt.hash(user.password, 10);
     const accessToken = await jwt.sign(
-      { username: user.username },
+      { email: user.email },
       process.env.SECRET_KEY,
       { expiresIn: "15min" }
     );
     const refreshToken = await jwt.sign(
-      { username: user.username },
+      { email: user.email },
       process.env.REFRESH_KEY,
       { expiresIn: "7d" }
     );
     const data = await user.save();
-    res.cookie("RefreshToken", refreshToken, { httpOnly: true,sameSite:"lax",secure:true });
-    res.status(200).json({ message: "Sign Up SuccessFul", accessToken: accessToken });
+    res.cookie("RefreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: true,
+    });
+    res
+      .status(200)
+      .json({ message: "Sign Up SuccessFul", accessToken: accessToken });
   } catch (err) {
-    res.json({error:err.keyPattern})
+    res.json({ error: err.keyPattern });
   }
 });
 

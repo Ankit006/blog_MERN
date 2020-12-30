@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SignUp from "../components/signUp/SingUp";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -12,6 +12,7 @@ function SignUpScreen({
   confirmPassword,
   confirmPasswordError,
 }) {
+  const [image, setImage] = useState();
   const usernameHandler = (event) => {
     dispatch({ type: "SIGNUP_USERNAME", payload: event.target.value });
   };
@@ -26,7 +27,9 @@ function SignUpScreen({
   const confirmPasswordHandler = (event) => {
     dispatch({ type: "SIGNUP_CONFIRM_PASSWORD", payload: event.target.value });
   };
-
+  const handleProfileImage = (event) => {
+    setImage(event.target.files[0]);
+  };
   const checkPasswordMatch = () => {
     password.includes(confirmPassword)
       ? dispatch({
@@ -41,14 +44,18 @@ function SignUpScreen({
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/signup", {
+    const res1 = await axios.post("/api/signup", {
       username: username,
       email: email,
       password: password,
     });
-    if (!res.data.error) {
-      auth.accessToken = res.data.accessToken;
+    if (!res1.data.error) {
+      auth.accessToken = res1.data.accessToken;
     }
+    const data = new FormData();
+    data.append("profile", image);
+    const res2 = await axios.post("/api/uploadProfileImage", data);
+    console.log(res2);
   };
 
   return (
@@ -64,6 +71,7 @@ function SignUpScreen({
         confirmPasswordHandler={confirmPasswordHandler}
         submitHandler={submitHandler}
         confirmPasswordError={confirmPasswordError}
+        handleProfileImage={handleProfileImage}
       />
     </div>
   );

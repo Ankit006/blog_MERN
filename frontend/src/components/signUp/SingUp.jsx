@@ -11,10 +11,11 @@ export default function SingUp({
   confirmPasswordHandler,
   submitHandler,
   confirmPasswordError,
+  handleProfileImage,
   error,
 }) {
   return (
-    <div>
+    <form>
       <p>username</p>
       <input type="text" value={username} onChange={usernameHandler} />
       <p>Email</p>
@@ -27,10 +28,11 @@ export default function SingUp({
         value={confirmPassword}
         onChange={confirmPasswordHandler}
       />
+      <input type="file" id="file" onChange={handleProfileImage} />
       <p>{confirmPasswordError}</p>
       <button type="submit" onClick={submitHandler}>
         Submit
       </button>
-    </div>
+    </form>
   );
 }

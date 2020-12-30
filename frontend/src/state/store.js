@@ -8,10 +8,10 @@ import signUpReducer from "./reducer/signUpReducer.js";
 
 // combine reducers
 const rootReducer = combineReducers({
-	writerReducer: writerReducer,
-	fetchStories: fetchStoriesReducer,
-	login:loginReducer,
-	signup:signUpReducer
+  writerReducer: writerReducer,
+  fetchStories: fetchStoriesReducer,
+  login: loginReducer,
+  signup: signUpReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools());

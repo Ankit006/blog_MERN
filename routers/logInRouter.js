@@ -19,21 +19,25 @@ logInRouter.post("/login", async (req, res) => {
       return res.status(404).json({ error: "user or password is incorrect" }); // if password doesn't match
 
     const accessToken = await jwt.sign(
-      { username: user.username },
+      { email: user.email },
       process.env.SECRET_KEY,
       {
         expiresIn: "15m",
       }
     ); // generate access token
     const refreshToken = await jwt.sign(
-      { username: user.username },
+      { email: user.email },
       process.env.REFRESH_KEY,
       {
         expiresIn: "7d",
       }
     ); // generate refresh token
 
-    res.cookie("RefreshToken", refreshToken, { httpOnly: true,sameSite:"lax",secure:true});
+    res.cookie("RefreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: true,
+    });
 
     res.status(200).json({
       message: "Login Successful",
