@@ -7,20 +7,41 @@ export default function Login({
   usernameHandler,
   passwordHandler,
   submitHandler,
+  required,
+  error,
 }) {
   return (
-    <div>
-      <p>username</p>
-      <input type="text" value={username} onChange={usernameHandler} />
-      <p>password</p>
-      <input type="password" value={userPassword} onChange={passwordHandler} />
-      <button type="submit" onClick={submitHandler}>
+    <div className="login">
+      <div>
+        <p className="input_label">username</p>
+        <input
+          type="text"
+          className="input_field"
+          value={username}
+          onChange={usernameHandler}
+          required={required}
+          placeholder="Your username"
+        />
+      </div>
+      <div>
+        <p className="input_label">password</p>
+        <input
+          className="input_field"
+          type="password"
+          value={userPassword}
+          onChange={passwordHandler}
+          placeholder="Minimum 8 Characters"
+          required={required}
+        />
+      </div>
+      <p className="error">{error}</p>
+      <button className="submit" type="submit" onClick={submitHandler}>
         Submit
       </button>
-      <p>
+      <p className="account">
         don't have an account?
         <Link to="signup" className="link">
-          SignUp
+          <span className="link_to"> SignUp</span>
         </Link>
       </p>
     </div>

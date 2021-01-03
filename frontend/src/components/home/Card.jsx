@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Card({ title, story, author, storyId }) {
   return (
     <div className="card">
-      <Link to={`/story/${storyId}`}>
+      <Link className="link" to={`/story/${storyId}`}>
         <h1 className="cardTitle">{title}</h1>
       </Link>
       <div className="cardStory">

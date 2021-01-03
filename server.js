@@ -10,11 +10,14 @@ import cookieParser from "cookie-parser";
 import csrf from "csurf";
 // routers
 import { writerRouter } from "./routers/writerRouter.js";
-import { getDataRouter } from "./routers/getAllDataRouter.js";
+import { getDataRouter } from "./routers/getAllStoryRouter.js";
 import signUpRouter from "./routers/singUpRouter.js";
 import logInRouter from "./routers/logInRouter.js";
 import refreshTokenRouter from "./routers/refreshTokenRouter.js";
 import profileImageUpload from "./routers/profileImageUploadRouter.js";
+import getStoryRouter from "./routers/getStoryRouter.js";
+import uploadStoryImage from "./routers/uploadStoryImageRouter.js";
+import getUserImage from "./routers/getUserImageRouter.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -38,8 +41,11 @@ app.use(
   getDataRouter,
   signUpRouter,
   logInRouter,
+  getStoryRouter,
   profileImageUpload,
-  refreshTokenRouter
+  refreshTokenRouter,
+  uploadStoryImage,
+  getUserImage
 );
 
 httpsServer.listen(port, () => {

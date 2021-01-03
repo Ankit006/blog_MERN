@@ -2,26 +2,26 @@ import "./App.css";
 import { useEffect } from "react";
 import Home from "./screens/Home";
 import { Switch, Route, Redirect } from "react-router-dom";
-import axios from "axios";
 import Story from "./screens/Story";
+import { getTokenAction, silentAction } from "./requests/startupRequest";
 import WriterScreen from "./screens/writerScreen.jsx";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
-import auth from "./auth.js";
+import { connect } from "react-redux";
 
-function App() {
+function App({ dispatch, token, status }) {
+  /*
+    Get accessToken when first time loading the App and save it to 
+    redux state, then use setInterval to refresh it event 15min
+  */
+
   useEffect(() => {
-    const getAccessToken = async () => {
-      const res = await axios.get("/api/refreshToken");
-      if (!res.data.error) {
-        auth.accessToken = res.data.accessToken;
-      }
-    };
-    getAccessToken();
+    dispatch(getTokenAction()); // dispatch function first time when user load the app
     setInterval(() => {
-      getAccessToken();
+      dispatch(silentAction()); // refresh token every 15min
     }, 900000);
   }, []);
+
   return (
     <Switch>
       <Route path="/" component={Home} exact />
@@ -30,7 +30,7 @@ function App() {
       <Route
         path="/writer"
         render={() => {
-          if (auth.accessToken === "") {
+          if (token === "") {
             return <LoginScreen />;
           } else {
             return <WriterScreen />;
@@ -43,4 +43,11 @@ function App() {
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    token: state.token.accessToken.token,
+    status: state.token.accessToken.status,
+  };
+}
+
+export default connect(mapStateToProps)(App);

@@ -11,22 +11,21 @@ const logInRouter = express.Router();
 logInRouter.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    if (!user)
-      return res.status(404).json({ error: "user or password is incorrect" }); // if there is no user than send an error with json
+    if (!user) return res.json({ error: "user or password is incorrect" }); // if there is no user than send an error with json
 
     const testPassword = await bcrypt.compare(req.body.password, user.password);
     if (!testPassword)
-      return res.status(404).json({ error: "user or password is incorrect" }); // if password doesn't match
+      return res.json({ error: "user or password is incorrect" }); // if password doesn't match
 
     const accessToken = await jwt.sign(
-      { email: user.email },
+      { id: user._id },
       process.env.SECRET_KEY,
       {
         expiresIn: "15m",
       }
     ); // generate access token
     const refreshToken = await jwt.sign(
-      { email: user.email },
+      { id: user._id },
       process.env.REFRESH_KEY,
       {
         expiresIn: "7d",
@@ -44,7 +43,7 @@ logInRouter.post("/login", async (req, res) => {
       accessToken: accessToken,
     });
   } catch (err) {
-    res.send(err);
+    res.json({ error: "user or password is incorrect" });
   }
 });
 

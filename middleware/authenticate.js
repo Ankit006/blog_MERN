@@ -11,9 +11,9 @@ const authenticate = async (req, res, next) => {
   if (!token) return res.status(401).json({ error: "Unauthorized access" });
   try {
     const payload = await jwt.verify(token, process.env.SECRET_KEY);
-    const user = await User.findOne({ email: payload.email });
+    const user = await User.findById(payload.id);
     if (!user) return res.json({ error: "Unauthorized Access" });
-    req.userEmail = payload.email;
+    req.userId = payload.id;
     next();
   } catch (err) {
     res.status(401).json({ error: "Unauthorized access" });

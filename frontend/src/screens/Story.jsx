@@ -1,18 +1,37 @@
-import stories from "../story";
 import Story from "../components/story/story";
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import getSingleStory from "../requests/getSingleStory";
 export default function StoryScreen() {
-	return (
-		<div>
-			<Story
-				author={stories[0].author}
-				title={stories[0].title}
-				story={stories[0].story}
-				imageLink={
-					"https://images.unsplash.com/photo-1596526131158-52be64dcc208?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
-				}
-			/>
-		</div>
-	);
+  const [author, setAuthor] = useState();
+  const [heading, setHeading] = useState();
+  const [story, setStory] = useState();
+  const [loading, setLoading] = useState(true);
+  const [storyImage, setStoryImage] = useState();
+  const { id } = useParams();
+
+  useEffect(() => {
+    getSingleStory(
+      id,
+      setAuthor,
+      setHeading,
+      setStory,
+      setStoryImage,
+      setLoading
+    );
+  }, [id]);
+  return (
+    <div>
+      {loading ? (
+        <h1>loading</h1>
+      ) : (
+        <Story
+          author={author}
+          title={heading}
+          story={story}
+          imageLink={storyImage}
+        />
+      )}
+    </div>
+  );
 }

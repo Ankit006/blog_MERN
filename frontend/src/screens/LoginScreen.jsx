@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Login from "../components/login/Login";
 import { connect } from "react-redux";
@@ -6,6 +6,8 @@ import authData from "../auth.js";
 import axios from "axios";
 
 function LoginScreen({ dispatch, username, password }) {
+  const [error, setError] = useState("");
+  const [required, setRequired] = useState(true);
   let history = useHistory();
 
   const usernameHandler = (event) => {
@@ -17,14 +19,24 @@ function LoginScreen({ dispatch, username, password }) {
 
   const submitData = async (e) => {
     e.preventDefault();
-
-    const res = await axios.post("/api/login", {
-      username: username,
-      password: password,
-    });
-    const data = res.data;
-    authData.accessToken = data.accessToken;
-    history.goBack();
+    if (username === "" || password === "") {
+      setRequired(true);
+      setError("Login information is required");
+    } else {
+      setRequired(false);
+      const res = await axios.post("/api/login", {
+        username: username,
+        password: password,
+      });
+      if (res.data.error) {
+        setError("username or password is incorrect");
+      } else {
+        setError("");
+        const data = res.data;
+        authData.accessToken = data.accessToken;
+        history.goBack();
+      }
+    }
   };
 
   return (
@@ -35,6 +47,8 @@ function LoginScreen({ dispatch, username, password }) {
         usernameHandler={usernameHandler}
         userPassword={password}
         submitHandler={submitData}
+        error={error}
+        required={required}
       />
     </div>
   );

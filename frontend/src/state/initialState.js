@@ -10,5 +10,12 @@ export const initialState = {
   email: "",
   password: "",
   confirmPassword: "",
-  confirmPasswordError: "",
+  accessToken: {
+    status: false,
+    token: "",
+  },
+  profileImage: {
+    status: false,
+    image: "",
+  },
 };

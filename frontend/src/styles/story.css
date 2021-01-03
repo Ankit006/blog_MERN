@@ -1,0 +1,38 @@
+.storyPage {
+  width: 50%;
+  margin: auto;
+  margin-top: 3rem;
+}
+
+.storyPage > h1 {
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-family: Raleway, sans-serif;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.storyPage > .author {
+  font-family: sans-serif;
+  color: #212121;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.storyPage > .author::before {
+  content: "by";
+  padding-right: 5px;
+}
+.storyPage > img {
+  max-width: 100%;
+  max-height: 100%;
+  margin-bottom: 1rem;
+}
+
+.storyPage > .story {
+  font-family: Lato, sans-serif;
+  font-size: 1.3rem;
+  line-height: 1cm;
+  letter-spacing: 1px;
+  color: #212121;
+}

@@ -1,14 +1,14 @@
 import multer from "multer";
+import cloudenary from "cloudinary";
 import express from "express";
 import dotenv from "dotenv";
-import cloudenary from "cloudinary";
 import authenticate from "../middleware/authenticate.js";
-import User from "../models/userModel.js";
+import Writer from "../models/writerModel.js";
 
 dotenv.config();
 
 const cloud = cloudenary.v2;
-const profileImageUpload = express.Router();
+const uploadStoryImage = express.Router();
 const upload = multer();
 
 cloud.config({
@@ -17,10 +17,10 @@ cloud.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-profileImageUpload.post(
-  "/uploadProfileImage",
+uploadStoryImage.post(
+  "/uploadStoryImage",
   authenticate,
-  upload.single("profile"),
+  upload.single("story"),
   async (req, res) => {
     try {
       const buf = req.file.buffer.toString("base64");
@@ -30,24 +30,23 @@ profileImageUpload.post(
           folder: "blog",
           eager: {
             quality: "auto",
-            transformation: { width: 200, height: 100 },
+            transformation: { width: 1000, height: 700 },
           },
           eager_async: true,
         }
       );
-      const user = await User.findById(req.userId);
-      user.profileImage.public_id = response.public_id;
-      user.profileImage.originalUrl = response.secure_url;
-      user.profileImage.compressedUrl = response.eager[0].secure_url;
-      await user.save();
-
+      const writer = await Writer.findById(req.body.storyId);
+      writer.storyImage.public_id = response.public_id;
+      writer.storyImage.originalUrl = response.secure_url;
+      writer.storyImage.compressedUrl = response.eager[0].secure_url;
+      await writer.save();
       res.json({
-        success: "successfully upload image",
+        message: "Successful",
       });
     } catch (Err) {
-      res.json({ error: "error while uploading image" });
+      res.send(Err);
     }
   }
 );
 
-export default profileImageUpload;
+export default uploadStoryImage;

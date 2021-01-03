@@ -1,0 +1,16 @@
+.writer {
+  width: 20rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.storyArea {
+  resize: none;
+  overflow-x: hidden;
+  height: 60vh;
+  width: 311px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}

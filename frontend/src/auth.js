@@ -1,9 +1,5 @@
-import axios from "axios";
-
 const authData = {
-    accessToken:""
+  accessToken: "",
 };
-
-
 
 export default authData;

@@ -1,47 +1,55 @@
-.navbar{
-    display: grid;
-    align-items: center;
-    grid-template-columns: repeat(2,1fr);
-    padding: 1rem 0;
+.navbar {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 1rem 0;
 }
-  .navbar > .title{
-    position: relative;
-    padding: 0;
-    padding-left: 3rem;
-    font-family: Lato,sans-serif;
-    cursor: pointer;
-    font-size: 2.3rem;
-  }
+.navbar > .title {
+  position: relative;
+  padding: 0;
+  padding-left: 3rem;
+  font-family: Lato, sans-serif;
+  cursor: pointer;
+  font-size: 2.3rem;
+}
 
-  .navbar>.nav{
-    text-align: right;
-    position: relative;
-    padding-right: 3rem;
-  }
-  
-  .navbar > .nav > span{
-    text-decoration: none;
-    margin: 0 1rem;
-    font-size: 1.1rem;
-    position: relative;
-    font-family: Lobster,sans-serif;
-    cursor: pointer;
-    text-align: c;
-    padding-bottom: 2px;
-  }
-  .navbar > .nav > span::before{
-    content: "";
-    position: absolute;
-    background-color: #353535;
-    width: 0%;
-    height: 1.1px;
-    top: 100%;
-    transition: width 0.5s;
+.navbar > .nav {
+  text-align: right;
+  position: relative;
+  padding-right: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 
-  }
+.navbar > .nav > span {
+  text-decoration: none;
+  margin: 0 1rem;
+  font-size: 1.1rem;
+  position: relative;
+  font-family: Lobster, sans-serif;
+  cursor: pointer;
+  text-align: c;
+  padding-bottom: 2px;
+}
+.navbar > .nav > span::before {
+  content: "";
+  position: absolute;
+  background-color: #353535;
+  width: 0%;
+  height: 1.1px;
+  top: 100%;
+  transition: width 0.5s;
+}
 
-  .navbar > .nav > span:hover::before{
-    width: 100%;
-  }
-  
-  
+.navbar > .nav > span:hover::before {
+  width: 100%;
+}
+
+.profileImage {
+  height: 50px;
+  width: 50px;
+  display: inline;
+  cursor: pointer;
+  border-radius: 50%;
+}

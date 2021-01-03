@@ -16,17 +16,17 @@ refreshTokenRouter.get("/refreshToken", async (req, res) => {
       tokens.RefreshToken,
       process.env.REFRESH_KEY
     );
-    const user = await User.findOne({ email: payload.email });
+    const user = await User.findById(payload.id);
     if (!user) return res.json({ error: "Unauthorized Access" });
 
     //  generate new access token and a new refreshToken
     const accessToken = await jwt.sign(
-      { email: payload.email },
+      { id: user._id },
       process.env.SECRET_KEY,
       { expiresIn: "15m" }
     );
     const refreshToken = await jwt.sign(
-      { email: payload.email },
+      { id: user._id },
       process.env.REFRESH_KEY,
       { expiresIn: "7d" }
     );

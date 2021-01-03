@@ -13,12 +13,12 @@ signUpRouter.post("/signup", async (req, res) => {
     const user = new User(req.body);
     user.password = await bcrypt.hash(user.password, 10);
     const accessToken = await jwt.sign(
-      { email: user.email },
+      { id: user._id },
       process.env.SECRET_KEY,
       { expiresIn: "15min" }
     );
     const refreshToken = await jwt.sign(
-      { email: user.email },
+      { id: user._id },
       process.env.REFRESH_KEY,
       { expiresIn: "7d" }
     );
