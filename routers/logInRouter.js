@@ -32,14 +32,18 @@ logInRouter.post("/login", async (req, res) => {
       }
     ); // generate refresh token
 
+    const profileImage = user.profileImage.compressedUrl;
+
     res.cookie("RefreshToken", refreshToken, {
       httpOnly: true,
       sameSite: "lax",
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       secure: true,
     });
 
     res.status(200).json({
       message: "Login Successful",
+      profileImage,
       accessToken: accessToken,
     });
   } catch (err) {

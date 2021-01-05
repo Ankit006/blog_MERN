@@ -1,13 +1,11 @@
 import express from "express";
 import helmet from "helmet";
 import https from "https";
-import Writer from "./models/writerModel.js";
 import dbConnect from "./dbconnect.js";
 import fs from "fs";
 import bodyParser from "body-parser";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import csrf from "csurf";
 // routers
 import { writerRouter } from "./routers/writerRouter.js";
 import { getDataRouter } from "./routers/getAllStoryRouter.js";
@@ -18,6 +16,9 @@ import profileImageUpload from "./routers/profileImageUploadRouter.js";
 import getStoryRouter from "./routers/getStoryRouter.js";
 import uploadStoryImage from "./routers/uploadStoryImageRouter.js";
 import getUserImage from "./routers/getUserImageRouter.js";
+import getUserData from "./routers/getUserData.js";
+import deleteAccount from "./routers/deleteAccount.js";
+import removeToken from "./routers/removeToken.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -45,7 +46,10 @@ app.use(
   profileImageUpload,
   refreshTokenRouter,
   uploadStoryImage,
-  getUserImage
+  getUserImage,
+  getUserData,
+  deleteAccount,
+  removeToken
 );
 
 httpsServer.listen(port, () => {

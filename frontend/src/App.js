@@ -3,13 +3,15 @@ import { useEffect } from "react";
 import Home from "./screens/Home";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Story from "./screens/Story";
+import loadingScreen from "./loadingScreen/loading.svg";
 import { getTokenAction, silentAction } from "./requests/startupRequest";
 import WriterScreen from "./screens/writerScreen.jsx";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
+import Account from "./screens/Account";
 import { connect } from "react-redux";
 
-function App({ dispatch, token, status }) {
+function App({ dispatch, token, tokenStatus }) {
   /*
     Get accessToken when first time loading the App and save it to 
     redux state, then use setInterval to refresh it event 15min
@@ -38,6 +40,22 @@ function App({ dispatch, token, status }) {
         }}
       />
       <Route path="/signup" component={SignUpScreen} />
+      <Route
+        path="/account"
+        render={() => {
+          if (tokenStatus === "loading") {
+            return (
+              <img
+                src={loadingScreen}
+                className="loadingScreen"
+                alt="loading"
+              />
+            );
+          } else if (tokenStatus === "success") {
+            return <Account />;
+          }
+        }}
+      />
       <Redirect to="/" />
     </Switch>
   );
@@ -46,7 +64,7 @@ function App({ dispatch, token, status }) {
 function mapStateToProps(state) {
   return {
     token: state.token.accessToken.token,
-    status: state.token.accessToken.status,
+    tokenStatus: state.token.accessToken.status,
   };
 }
 

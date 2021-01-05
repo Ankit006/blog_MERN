@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Login from "../components/login/Login";
+import fetchLoading from "../loadingScreen/fetch.svg";
 import { connect } from "react-redux";
-import authData from "../auth.js";
 import axios from "axios";
 
 function LoginScreen({ dispatch, username, password }) {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(null);
   const [required, setRequired] = useState(true);
   let history = useHistory();
 
@@ -18,6 +19,7 @@ function LoginScreen({ dispatch, username, password }) {
   };
 
   const submitData = async (e) => {
+    setLoading(true);
     e.preventDefault();
     if (username === "" || password === "") {
       setRequired(true);
@@ -29,11 +31,18 @@ function LoginScreen({ dispatch, username, password }) {
         password: password,
       });
       if (res.data.error) {
+        setLoading(false);
         setError("username or password is incorrect");
       } else {
         setError("");
-        const data = res.data;
-        authData.accessToken = data.accessToken;
+        dispatch({ type: "SAVE_TOKEN_SUCCESS", payload: res.data.accessToken });
+        if (res.data.profileImage) {
+          dispatch({
+            type: "PROFILE_IMAGE_SUCCESS",
+            payload: res.data.profileImage,
+          });
+        }
+        setLoading(false);
         history.goBack();
       }
     }
@@ -41,6 +50,11 @@ function LoginScreen({ dispatch, username, password }) {
 
   return (
     <div>
+      {loading === true ? (
+        <div className="fetchLoading">
+          <img src={fetchLoading} alt="fetchLoading" />
+        </div>
+      ) : null}
       <Login
         username={username}
         passwordHandler={passwordHandler}

@@ -3,6 +3,7 @@ import {
   PROFILE_IMAGE_LOADING,
   PROFILE_IMAGE_SUCCESS,
   PROFILE_IMAGE_FAILED,
+  PROFILE_IMAGE_REMOVE,
 } from "../stateConstant.js";
 
 const getProfileImage = (state = initialState, action) => {
@@ -29,6 +30,14 @@ const getProfileImage = (state = initialState, action) => {
         profileImage: {
           status: "failed",
           image: action.payload,
+        },
+      };
+    case PROFILE_IMAGE_REMOVE:
+      return {
+        ...state,
+        profileImage: {
+          status: false,
+          image: "",
         },
       };
     default:

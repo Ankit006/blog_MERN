@@ -3,9 +3,9 @@ import React from "react";
 export default function AuthorField({ value, handler }) {
   return (
     <div>
-      <p className="input_label">Author</p>
+      <p className="writer_label">Author</p>
       <input
-        className="input_field"
+        className="author_field"
         type="text"
         value={value}
         onChange={handler}

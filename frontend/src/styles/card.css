@@ -36,10 +36,27 @@
 .cardAuthor::before {
   content: "by ";
 }
+@media only screen and (max-width: 646px) {
+  .cardPannel {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
 
 @media only screen and (max-width: 502px) {
   .cardStory > p {
     -webkit-line-clamp: 3;
+  }
+  .cardTitle {
+    font-size: 1.8rem;
+  }
+  .cardStory > p {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 448px) {
+  .cardTitle {
+    font-size: 1.4rem;
   }
 }
 

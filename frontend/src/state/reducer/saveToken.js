@@ -3,6 +3,7 @@ import {
   SAVE_TOKEN_SUCCESS,
   SAVE_TOKEN_LOADING,
   SAVE_TOKEN_FAILED,
+  SAVE_TOKEN_REMOVE,
 } from "../stateConstant.js";
 
 const saveTokenReducer = (state = initialState, action) => {
@@ -29,6 +30,14 @@ const saveTokenReducer = (state = initialState, action) => {
         accessToken: {
           status: "failed",
           token: action.payload,
+        },
+      };
+    case SAVE_TOKEN_REMOVE:
+      return {
+        ...state,
+        accessToken: {
+          status: false,
+          token: "",
         },
       };
     default:

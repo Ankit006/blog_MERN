@@ -34,6 +34,7 @@ refreshTokenRouter.get("/refreshToken", async (req, res) => {
     res.cookie("RefreshToken", refreshToken, {
       httpOnly: true,
       sameSite: "lax",
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       secure: true,
     }); // set a new RefreshToken Cookie
     res.json({ accessToken: accessToken }); // set a new access Token

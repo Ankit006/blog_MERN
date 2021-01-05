@@ -43,6 +43,7 @@ profileImageUpload.post(
 
       res.json({
         success: "successfully upload image",
+        profileImage: response.eager[0].secure_url,
       });
     } catch (Err) {
       res.json({ error: "error while uploading image" });

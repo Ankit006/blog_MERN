@@ -26,6 +26,7 @@ signUpRouter.post("/signup", async (req, res) => {
     res.cookie("RefreshToken", refreshToken, {
       httpOnly: true,
       sameSite: "lax",
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       secure: true,
     });
     res
