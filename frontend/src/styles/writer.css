@@ -1,9 +1,9 @@
 .writer {
-  width: 50rem;
+  padding: 2rem;
   margin: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  width: 50rem;
 }
 
 .writer_label {
@@ -18,17 +18,43 @@
   margin-top: 1rem;
 }
 .heading_field {
-  width: 50rem;
   margin-bottom: 1rem;
+  width: 100%;
 }
 .storyArea {
   resize: none;
+  width: 100%;
   overflow-x: hidden;
   height: 60vh;
-  width: 50rem;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   width: 50rem;
   padding: 10px;
   box-sizing: border-box;
 }
+@media only screen and (max-width: 872px) {
+  .writer {
+    width: 95%;
+  }
+  .storyArea {
+    width: 90%;
+  }
+  .heading_field {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .heading_field {
+    width: 80%;
+  }
+}
+
+/* @media only screen and (max-width: 708px) {
+  .storyArea {
+    width: 30rem;
+  }
+  .heading_field {
+    width: 30rem;
+  }
+} */

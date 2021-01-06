@@ -13,9 +13,6 @@ export default function Dropdown({ showDropDown, logout }) {
           <p>Account</p>
         </Link>
       </div>
-      <div className="dropdown_items">
-        <p>Dark Mode</p>
-      </div>
       <div onClick={logout} className="dropdown_items">
         <p>Logout</p>
       </div>

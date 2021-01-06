@@ -44,7 +44,9 @@ uploadStoryImage.post(
         message: "Successful",
       });
     } catch (Err) {
-      res.send(Err);
+      res.json({
+        error: "there is an issue uploading image",
+      });
     }
   }
 );

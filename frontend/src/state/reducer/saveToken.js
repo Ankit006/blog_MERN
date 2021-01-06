@@ -29,7 +29,7 @@ const saveTokenReducer = (state = initialState, action) => {
         ...state,
         accessToken: {
           status: "failed",
-          token: action.payload,
+          token: "",
         },
       };
     case SAVE_TOKEN_REMOVE:

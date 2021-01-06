@@ -16,7 +16,6 @@ export default function Navbar({
             Post
           </Link>
         </span>
-        <span className="nav_items">about</span>
         {profileImage === "" ? (
           <span className="nav_items">
             <Link to="/login" className="link">

@@ -84,7 +84,13 @@ p {
   color: #f50057;
   padding-bottom: 3px;
 }
-
+.message {
+  font-size: 14px;
+  font-family: Raleway, sans-serif;
+  font-weight: bold;
+  color: green;
+  padding-bottom: 3px;
+}
 .upload_container {
   margin-top: 1rem;
   margin-bottom: 1.5rem;

@@ -13,6 +13,8 @@ writerRouter.post("/writer", authenticate, async (req, res) => {
       id: writer._id,
     });
   } catch (err) {
-    console.log(err);
+    res.json({
+      message: "Issue while uploading story, try again later",
+    });
   }
 });

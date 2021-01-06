@@ -1,6 +1,7 @@
 export const HEADING_CHANGE = "HEADING_CHANGE";
 export const STORY_CHANGE = "STORY_CHANGE";
 export const AUTHOR_CHANGE = "AUTHOR_CHANGE";
+
 export const STORY_LOADING = "LOADING_STORY";
 export const FETCH_STORIES = "FETCH_STORIES";
 export const LOGIN_USERNAME = "LOGIN_USERNAME";
